@@ -20,7 +20,21 @@ export default function AddCoffee() {
       details,
       photo,
     };
-    console.log(newCoffee);
+
+    fetch("http://localhost:7000/coffee", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newCoffee),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          alert("Coffee added successfully");
+        }
+        console.log(data);
+      });
   };
 
   return (
