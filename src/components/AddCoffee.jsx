@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 export default function AddCoffee() {
   const handleAddCoffee = (e) => {
     e.preventDefault();
@@ -31,7 +33,12 @@ export default function AddCoffee() {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
-          alert("Coffee added successfully");
+          Swal.fire({
+            title: "Success!",
+            text: "Coffee Added Successfully",
+            icon: "success",
+            confirmButtonText: "Cool",
+          });
         }
         console.log(data);
       });
