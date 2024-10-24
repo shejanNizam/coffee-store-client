@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -31,18 +32,11 @@ const UpdateCoffee = () => {
 
     console.log(updatedCoffee);
 
-    // send data to the server
-    fetch(`http://localhost:7000/coffee/${_id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updatedCoffee),
-    })
-      .then((res) => res.json())
+    // updated with axios
+    axios
+      .put(`http://localhost:7000/coffee/${_id}`, updatedCoffee)
       .then((data) => {
-        console.log(data);
-        if (data.modifiedCount > 0) {
+        if (data.data.modifiedCount > 0) {
           Swal.fire({
             title: "Success!",
             text: "Coffee Updated Successfully",
@@ -51,6 +45,27 @@ const UpdateCoffee = () => {
           });
         }
       });
+
+    // send data to the server
+    // fetch(`http://localhost:7000/coffee/${_id}`, {
+    //   method: "PUT",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(updatedCoffee),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     if (data.modifiedCount > 0) {
+    //       Swal.fire({
+    //         title: "Success!",
+    //         text: "Coffee Updated Successfully",
+    //         icon: "success",
+    //         confirmButtonText: "Cool",
+    //       });
+    //     }
+    //   });
   };
 
   return (
