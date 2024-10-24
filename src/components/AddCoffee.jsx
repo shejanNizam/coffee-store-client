@@ -1,3 +1,4 @@
+import axios from "axios";
 import Swal from "sweetalert2";
 
 export default function AddCoffee() {
@@ -23,25 +24,38 @@ export default function AddCoffee() {
       photo,
     };
 
-    fetch("http://localhost:7000/coffee", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newCoffee),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          Swal.fire({
-            title: "Success!",
-            text: "Coffee Added Successfully",
-            icon: "success",
-            confirmButtonText: "Cool",
-          });
-        }
-        console.log(data);
-      });
+    // data load with axios
+    axios.post("http://localhost:7000/coffee", newCoffee).then((data) => {
+      if (data.data.insertedId) {
+        Swal.fire({
+          title: "Success!",
+          text: "Coffee Added Successfully",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
+      }
+      console.log(data.data);
+    });
+
+    // fetch("http://localhost:7000/coffee", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(newCoffee),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.insertedId) {
+    //       Swal.fire({
+    //         title: "Success!",
+    //         text: "Coffee Added Successfully",
+    //         icon: "success",
+    //         confirmButtonText: "Cool",
+    //       });
+    //     }
+    //     console.log(data);
+    //   });
   };
 
   return (
